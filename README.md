@@ -1,4 +1,4 @@
-# HI
+# MEMORY GAME
 This repository holds the code of the memory game for Oclock technical test
 
 ## Setup
