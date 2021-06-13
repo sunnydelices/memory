@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link href="css/main.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="js/Helper.js"></script>
+        <script type="text/javascript" src="js/Game.js"></script>
+        <title>Memory</title>
+   </head>
+
+    <body>
+        <div class="container">
+            <h1>MEMORY GAME</h1>
+            <div class="game-wrapper">
+                <button type="button" class="btn btn-primary js-start">Lancer une nouvelle partie !</button>
+                <div class="cards-board">
+                    <div class="best-times-wrapper">
+                        <h2>MEILLEURS TEMPS</h2>
+                        <table class="best-times">
+                            {% for game in games %}
+                                <tr>
+                                    <td>{{ loop.index }} - </td>
+                                    <td>{{ game.duration }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td>Aucun score enregistré</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+                <div class="timer-wrapper">
+                    <div class="timer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            const $board = $('.game-wrapper');
+            new Game($board);
+        });
+    </script>
+
+</html>
