@@ -1,0 +1,74 @@
+.container {
+    text-align: center;
+    width: 800px;
+    padding: 0;
+    margin: auto;
+}
+
+.best-times-wrapper {
+    background-color: #FFFFFF;
+    padding: 10px;
+    width: 300px;
+    margin: auto;
+}
+.best-times {
+    font-family: monospace;
+    text-align: left;
+    margin: auto;
+}
+
+.cards-board {
+    background-color: #6DB3F2;
+    height: 470px;
+    padding: 15px;
+    margin: 30px 0;
+}
+.card-wrapper {
+    background-color: #DCDCDC;
+    margin: 5px;
+    float: left;
+    width: 100px;
+    height: 100px;
+    perspective: 1000px;  /* pour l'effet 3D */
+}
+.card {
+    background-color: #DCDCDC;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+.card.flipped {
+    transform: rotateY(180deg);
+}
+.card-clickable {
+    cursor: pointer;
+}
+.card-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    background: url('../img/cards.png') 0 0 no-repeat;
+    transform: rotateY(180deg);
+}
+
+.timer-wrapper {
+    height: 30px;
+    border: 1px solid #DCDCDC;
+}
+.timer-wrapper .timer {
+    background-color: orange;
+    height: 28px;
+    width: 0;
+}
+
+
+@for $i from 1 through 14 {
+    .fruit-#{$i} {
+        background-position: 0 (-100 * $i) + px
+    }
+}
+

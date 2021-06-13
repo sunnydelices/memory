@@ -1,5 +1,8 @@
 'use strict'
 
+const $ = require('jquery')
+const Util = require("./Util")
+
 class Game {
 
     constructor($board) {
@@ -8,9 +11,10 @@ class Game {
         this.$flipedCard1 = null
         this.$flipedCard2 = null
         this.bestTimes = [] // tableau des meilleurs temps
-        this.nbPairs = 2 // nombre de pairs de cartes en jeu
-        this.nbRemainingPairs = 2 // nombre de pairs de cartes restante à trouver
+        this.nbPairs = 14 // nombre de pairs de cartes en jeu
+        this.nbRemainingPairs = this.nbPairs // nombre de pairs de cartes restante à trouver
         this.timeCounter = 0 // compteur de millisecondes
+        this.timeMax = 120000 // temps de jeu max avant d'avoir perdu
 
         this.$board.find('.js-start').on('click', () => {
             this.startGame()
@@ -35,11 +39,10 @@ class Game {
 
         // on lance un update du compteur toutes les secondes
         this.timeCountdown = setInterval(() => {
-            const timeMax = 30000
-            const timerSize = 100 * this.timeCounter / timeMax
+            const timerSize = 100 * this.timeCounter / this.timeMax
             this.timeCounter = this.timeCounter + 1000
             this.$board.find('.timer').width(`${timerSize}%`)
-            if (this.timeCounter > timeMax) {
+            if (this.timeCounter > this.timeMax) {
                 clearInterval(this.timeCountdown)
                 this.looseGame()
             }
@@ -53,7 +56,7 @@ class Game {
         for (let i = 0; i < this.nbPairs; i++) {
             this.cardsDeck.push(i, i)
         }
-        this.cardsDeck = shuffleArray(this.cardsDeck);
+        this.cardsDeck = Util.shuffleArray(this.cardsDeck);
     }
 
     /**
@@ -82,7 +85,7 @@ class Game {
             htmlScoreTable +=  `
         <tr>
             <td>${index+1} - </td>
-            <td>${getMinAndSecfromMs(time)} </td>
+            <td>${time} </td>
         </tr>
 `
         })
@@ -158,7 +161,7 @@ class Game {
     async winGame() {
         clearInterval(this.timeCountdown)
         const gameTime = this.timeCounter
-        alert('Vous avez Gagnééééé !!!! \n\n TEMPS : ' + getMinAndSecfromMs(gameTime))
+        alert('Vous avez Gagnééééé !!!! \n\n TEMPS : ' + Util.getMinAndSecfromMs(gameTime))
         try {
             const json = await this.saveScore(gameTime)
             this.bestTimes = json.games
@@ -204,8 +207,7 @@ class Game {
         this.$board.find('.best-times-wrapper').show()
     }
 
-
 }
 
-
+module.exports = Game;
 

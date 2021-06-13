@@ -59,25 +59,19 @@ class GameController extends AbstractController
         $repository = $entityManager->getRepository(Game::class);
 
         // on demande au repository de requetter tous les jeux qu'il a en base
-        $games = $repository->findBy(array(),array('duration' => 'ASC'));
+        $games = $repository->findBy(array(),array('duration' => 'ASC'),10);
 
         $data = [];
         foreach($games as $game) {
-            array_push($data, $game->getDuration());
+            $seconds = intval( ($game->getDuration() / 1000) % 60);
+            $minutes = intval( ($game->getDuration() / (1000*60)) % 60);
+            $minutes = ($minutes < 10) ? "0" . $minutes : $minutes;
+            $seconds = ($seconds < 10) ? "0" . $seconds : $seconds;
+            array_push($data, "00:$minutes:$seconds");
         }
 
         // on renvoie la liste des scores
         return new JsonResponse(['games' => $data]);
-    }
-
-    public function udate($format = 'u', $utimestamp = null) {
-        if (is_null($utimestamp))
-            $utimestamp = microtime(true);
-
-        $timestamp = floor($utimestamp);
-        $milliseconds = round(($utimestamp - $timestamp) * 1000000);
-
-        return date(preg_replace('`(?<!\\\\)u`', $milliseconds, $format), $timestamp);
     }
 
 }

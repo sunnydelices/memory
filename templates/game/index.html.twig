@@ -2,12 +2,9 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-        <link href="css/main.css" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script type="text/javascript" src="js/Helper.js"></script>
-        <script type="text/javascript" src="js/Game.js"></script>
         <title>Memory</title>
+
+        <script src="build/memory.js"></script>
    </head>
 
     <body>
@@ -38,13 +35,6 @@
                 </div>
             </div>
         </div>
+
     </body>
-
-    <script type="text/javascript">
-        $( document ).ready(function() {
-            const $board = $('.game-wrapper');
-            new Game($board);
-        });
-    </script>
-
 </html>
